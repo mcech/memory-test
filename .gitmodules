@@ -1,0 +1,4 @@
+[submodule "inc"]
+	path = inc
+	url = git@github.com:mcech/memory.git
+	branch = main
