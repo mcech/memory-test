@@ -1,26 +1,15 @@
-memory
-======
+memory-test
+===========
 
+This repository contains unit tests for `mcech/memory`.
 
-## Allocators
-
-Allocators are classes that define memory models to be used by some parts of the
-Standard Library, and most specifically, by STL containers.
-
-
-### AlignedAllocator
-
-`AlignedAllocator` takes a second template parameter to specify the alignment of
-the memory chunks returned by `AlignedAllocator::allocate`.
-
-
-### PoolAllocator
-
-Unlike `std::allocator`,  `PoolAllocator::deallocate` does  not free the memory,
-but stores  it  into  a memory pool  and  recycles  it  on  a subsequent call to
-`PoolAllocator::allocate`.  `PoolAllocator` is thread-safe, lock-free, and (most
-of the time) also wait-free.
-
-It is designed  for use with containers that manage linked nodes of fixed  size,
-such as `std::list`,  `std::set`, `std::map` etc. Regarding `std::vector`, there
-is no difference compared to `std::allocator`.
+    cmake -DCMAKE_BUILD_TYPE=Debug -S . -B build
+    cmake --build build -j
+    
+    lcov --directory . --zerocounters
+    build/memory-test --gtest_output=xml:report/unittest/index.xml
+    xsltproc report/unittest/gtest-result.xsl report/unittest/index.xml > report/unittest/index.html
+    gcov -a -c -H -m $(find build/CMakeFiles/memory-test.dir/src/*.o | paste -sd ' ')
+    lcov --rc lcov_branch_coverage=1 -c -d . -o total.info
+    lcov --rc lcov_branch_coverage=1 -r total.info "/usr/include/*" "*/gtest/*" "*/src/*" -o filtered.info
+    genhtml --function-coverage --branch-coverage --demangle-cpp filtered.info --output-directory report/coverage

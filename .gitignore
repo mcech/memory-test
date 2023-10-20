@@ -1,0 +1,9 @@
+.project
+.cproject
+.vs/
+.vscode/
+build/
+report/unittest/index.*
+report/coverage/
+*.gcov
+*.info
