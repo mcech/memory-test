@@ -1,0 +1,6 @@
+file(GLOB SOURCES *.cpp)
+add_executable(memory-benchmark ${SOURCES})
+target_compile_features(memory-benchmark PRIVATE cxx_std_20)
+target_compile_options(memory-benchmark PRIVATE -Wall -Wextra -O3)
+target_compile_definitions(memory-benchmark PUBLIC NDEBUG)
+target_include_directories(memory-benchmark PRIVATE ../inc)

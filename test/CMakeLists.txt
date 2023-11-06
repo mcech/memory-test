@@ -1,0 +1,7 @@
+set(CMAKE_BUILD_TYPE Debug)
+file(GLOB SOURCES *.cpp)
+add_executable(memory-test ${SOURCES})
+target_compile_features(memory-test PRIVATE cxx_std_20)
+target_compile_options(memory-test PRIVATE -Wall -Wextra -Og -fno-inline -fprofile-arcs -ftest-coverage -fsanitize=leak)
+target_include_directories(memory-test PRIVATE ../inc)
+target_link_libraries(memory-test gtest gcov)
